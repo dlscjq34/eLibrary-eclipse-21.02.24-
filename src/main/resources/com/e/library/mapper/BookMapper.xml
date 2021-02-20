@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.e.library.mapper.BookMapper">
+
+	<insert id="insert">
+		insert into book values
+		(seq_book.nextval, #{bookName}, #{writer}, #{publisher}, #{publiDate}, #{status})
+	</insert> 
+	
+	<select id="getBook" resultType="com.e.library.model.BookVO">
+		select * from book where bookId = #{bookId}
+	</select>
+	
+	<select id="getAllBooks" resultType="com.e.library.model.BookVO">
+		select * from book
+	</select>
+	
+	<select id="getBooks" resultType="com.e.library.model.BookVO">
+		select * from book where ${column} like '%' || #{searchBook} || '%'
+	</select>
+
+</mapper>
+
+  

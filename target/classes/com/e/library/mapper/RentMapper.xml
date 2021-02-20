@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.e.library.mapper.RentMapper">
+
+	<!-- 도서 대출 -->
+	<insert id="rent">
+		insert into rent(rentId, bookId, memberId, rentDate, dueDate) 
+		values(seq_rent.nextval, #{bookId}, #{memberId}, sysdate, sysdate+14)
+	</insert> 
+	
+	<!-- 도서 반납 -->
+	<update id="backRent">
+		update rent set returnDate = sysdate
+		where rentId = #{rentId}
+	</update> 
+	
+	<!-- 도서 상태 업데이트 -->
+	<update id="updateBookStatus">
+		update book set status = #{bookStatus}
+		where bookId = #{bookId}
+	</update> 
+	
+	<!-- 대출 검색 -->
+	<select id="getRent" resultType="com.e.library.model.RentVO">
+		select * from rent 
+		where bookId = #{bookId} 
+		and returnDate is null
+	</select>
+	
+	<!-- 대출들 검색 -->
+	<select id="getRents" resultType="com.e.library.model.RentVO">
+		select * from rent where memberId = #{memberId}
+	</select>
+	
+</mapper>
+
+  
