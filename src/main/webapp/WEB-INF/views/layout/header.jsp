@@ -9,11 +9,13 @@
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<script src="/resources/js/member.js"></script>
 	<script src="/resources/js/rent.js"></script>
+	<script src="/resources/js/favor.js"></script>
 </head>
 <body>
 	<header>
-		 <a href="/regBookForm">도서 등록</a> &nbsp;
-		 <a href="/bookList">도서 목록</a> &nbsp;
+		 <a href="/regBookForm">도서등록</a> &nbsp;
+		 <a href="/bookList">도서목록</a> &nbsp;
+		 <a href="/newBookList">신간도서</a> &nbsp;
 
 		 <c:choose>
 		 	<c:when test="${ not empty sessionId }">
@@ -26,6 +28,7 @@
 				</form>
 
 			 	<span id="member"><a href="#">나의정보</a></span> &nbsp;
+			 	<span id="favor"><a href="#">관심도서</a></span> &nbsp;
 			 	<span id="useHistory"><a href="#">대출내역</a></span> &nbsp;
 			 	<span id="logout"><a href="#">로그아웃</a></span>]
 			 	

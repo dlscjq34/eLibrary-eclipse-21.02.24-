@@ -103,7 +103,7 @@ public class RentController {
 		JSONArray jArray = new JSONArray();
 		for (int i = 0; i < rentList.size(); i++) {
 			JSONObject jsonRow = new JSONObject();
-			jsonRow.put("rentId", rentList.get(i).getBookId());
+			jsonRow.put("rentId", rentList.get(i).getRentId());
 			jsonRow.put("bookId", rentList.get(i).getBookId());
 			jsonRow.put("bookName", rentList.get(i).getBookName());
 			jsonRow.put("rentDate", new SimpleDateFormat("yyyy-MM-dd").format(rentList.get(i).getRentDate()));//시분초에서 : 와 .이 json 유효성 검사에 위반됨. 그래서 시분초 뺐다. 
@@ -113,7 +113,7 @@ public class RentController {
 			
 			//null이면 빈문자열, 아니면 날짜 대입
 			Timestamp returnDate = rentList.get(i).getReturnDate();
-			jsonRow.put("returnDate", (returnDate == null)? "":new SimpleDateFormat("yyyy-MM-dd").format(returnDate));//시분초에서 : 와 .이 json 유효성 검사에 위반됨. 그래서 시분초 뺐다.
+			jsonRow.put("returnDate", (returnDate == null)? "미반납":new SimpleDateFormat("yyyy-MM-dd").format(returnDate));//시분초에서 : 와 .이 json 유효성 검사에 위반됨. 그래서 시분초 뺐다.
 		}
 		
 		JSONObject jsonObj = new JSONObject();
@@ -126,11 +126,33 @@ public class RentController {
 	
 	
 	
-	//대출 반납 
+	//도서 반납 
 	@ResponseBody
 	@PostMapping("/backRent")
 	public void backRent(@RequestBody RentVO rentVO) {
 		
 		service.backRent(rentVO);
+	}
+	
+	
+	
+	
+	//안드로이드 도서반납
+	@PostMapping("/androidBackRent")
+	public void androidBackRent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		//반납처리
+		String rentId = request.getParameter("rentId");
+		String bookId = request.getParameter("bookId");
+		RentVO rentVO = new RentVO();
+		rentVO.setRentId(rentId);
+		rentVO.setBookId(bookId);
+		service.backRent(rentVO);
+	
+		//안드로이드로 응답
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("result", "반납되었습니다.");
+		PrintWriter out = response.getWriter();
+		out.print(jsonObj);
 	}
 }

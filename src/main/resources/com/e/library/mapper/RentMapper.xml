@@ -32,7 +32,8 @@
 	
 	<!-- 대출들 검색 -->
 	<select id="getRents" resultType="com.e.library.model.RentVO">
-		select * from rent where memberId = #{memberId}
+		select * from rent where memberId = #{memberId} 
+		order by rentId desc
 	</select>
 	
 </mapper>

@@ -41,5 +41,10 @@ public class BookServiceImpl implements BookService {
 		return dao.getBook(bookId);
 	}
 
+	@Override
+	public List<BookVO> getNewBooks() {
+		return dao.getNewBooks();
+	}
+
 
 }

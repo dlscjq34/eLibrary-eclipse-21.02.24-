@@ -5,21 +5,31 @@
   
 <mapper namespace="com.e.library.mapper.BookMapper">
 
+	<!-- 도서 등록 -->
 	<insert id="insert">
 		insert into book values
 		(seq_book.nextval, #{bookName}, #{writer}, #{publisher}, #{publiDate}, #{status})
 	</insert> 
 	
+	<!-- 도서 찾기 -->
 	<select id="getBook" resultType="com.e.library.model.BookVO">
 		select * from book where bookId = #{bookId}
 	</select>
 	
+	<!-- 도서들 찾기 -->
+	<select id="getBooks" resultType="com.e.library.model.BookVO">
+		select * from book where ${column} like '%' || #{searchBook} || '%'
+	</select>
+	
+	<!-- 모든 도서 -->
 	<select id="getAllBooks" resultType="com.e.library.model.BookVO">
 		select * from book
 	</select>
 	
-	<select id="getBooks" resultType="com.e.library.model.BookVO">
-		select * from book where ${column} like '%' || #{searchBook} || '%'
+	<!-- 신간도서 TOP 5 -->
+	<select id="getNewBooks" resultType="com.e.library.model.BookVO">
+		select * from (select * from book order by publiDate desc)
+		where rownum &lt; 6
 	</select>
 
 </mapper>

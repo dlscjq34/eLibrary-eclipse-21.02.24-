@@ -11,5 +11,20 @@
 		values(seq_favorBook.nextval, #{memberId}, #{bookId})
 	</insert> 
 	
+	<!-- 관심도서 목록 -->
+	<select id="getFavorBooks" resultType="com.e.library.model.BookVO">
+		select b.bookid, b.bookname, b.writer, b.publisher, b.publidate, b.status
+		from favorbook f, book b
+		where f.bookid = b.bookid
+		and memberid = #{memberId}
+	</select>
+	
+	<!-- 관심도서 검색 -->
+	<select id="getFavorBook" resultType="com.e.library.model.FavorBookVO">
+		select * from favorbook
+		where memberid = #{memberId} 
+		and bookId = #{bookId}
+	</select>
+	
 </mapper>
   

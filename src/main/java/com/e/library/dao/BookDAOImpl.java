@@ -43,5 +43,10 @@ public class BookDAOImpl implements BookDAO {
 		return mapper.getBook(bookId);
 	}
 
+	@Override
+	public List<BookVO> getNewBooks() {
+		return mapper.getNewBooks();
+	}
+
 
 }

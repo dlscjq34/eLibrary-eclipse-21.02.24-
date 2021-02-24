@@ -70,6 +70,22 @@ public class BookController {
 	
 	
 	
+	
+	
+	
+	//신간도서
+	@GetMapping("newBookList")
+	public String newBookList(Model model) {
+		
+		List<BookVO> list = service.getNewBooks();
+		model.addAttribute("list", list);
+		
+		
+		return "book/newBookList";
+	}
+	
+	
+	
 	//도서보기
 	@GetMapping("/book")
 	public String idCheck(String bookId, Model model) {

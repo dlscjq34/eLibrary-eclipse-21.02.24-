@@ -15,6 +15,8 @@ public interface BookDAO {
 	
 	public List<BookVO> getAllBooks();//모든 도서
 	
+	public List<BookVO> getNewBooks();//신간도서
+	
 	public int getBookCount();//모든 도서 수
 
 }
